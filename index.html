@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Harita Görsel Projesi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+
+    <style>
+        #map { height: 100vh; }
+        .popup-img {
+            width: 250px;
+            border-radius: 12px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="map"></div>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script>
+
+// Harita başlangıç konumu (istersen değiştir)
+var map = L.map('map').setView([40.2210, 28.8478], 17);
+
+// Harita katmanı
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap'
+}).addTo(map);
+
+// 6 adet konum
+var locations = [
+    { lat: 40.2210, lon: 28.8478, image: "images/img1.jpeg" },
+    { lat: 40.2214, lon: 28.8480, image: "images/img2.jpeg" },
+    { lat: 40.2213, lon: 28.8482, image: "images/img3.jpeg" },
+    { lat: 40.2212, lon: 28.8482, image: "images/img4.jpeg" },
+    { lat: 40.2222, lon: 28.8494, image: "images/img5.jpeg" },
+    { lat: 40.2222, lon: 28.8493, image: "images/img6.jpeg" }
+];
+
+// Marker oluşturma
+locations.forEach(function(loc) {
+    var marker = L.marker([loc.lat, loc.lon]).addTo(map);
+
+    marker.bindPopup(`
+        <img class="popup-img" src="${loc.image}">
+    `);
+});
+
+</script>
+
+</body>
+</html>
